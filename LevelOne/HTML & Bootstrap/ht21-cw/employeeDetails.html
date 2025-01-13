@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Details</title>
+
+    <body>
+      <header>
+        <a href="index.html">Company Logo</a>
+        <nav>
+          <ul>
+            <li><a href="index.html"> Home </a></li>
+            <li><a href="employee.html"> Employees </a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section id="employeeDetail"></section>
+      </main>
+
+      <footer></footer>
+
+      <!-- we will try to create an array of the object -->
+      <script>
+        // database
+        let employees = [
+          {
+            id: "1",
+            name: "John Doe",
+            title: "Software Developer",
+            department: "IT",
+          },
+          {
+            id: "2",
+            name: "James Smith",
+            title: "Designer",
+            department: "Designer",
+          },
+          {
+            id: "3",
+            name: "Bob Johnson",
+            title: "Project Manager",
+            department: "Management",
+          },
+        ];
+
+        // Function to get query parameter by name
+        function getParameterBy(name) {
+          let url = new URL(window.location.href); // Create a URL object
+          return url.searchParams.get(name); // Get the value of the query parameter
+        }
+
+        // Get the employee ID from the URL
+        let employeeId = getParameterBy("id");
+
+        // Find the id in the database
+        let employee;
+        for (let i = 0; i < employees.length; i++) {
+          if (employees[i].id === employeeId) {
+            employee = employees[i];
+          }
+        }
+
+        // Get the HTML element where the details will be displayed
+
+        let employeeDetailsElement = document.getElementById("employeeDetail");
+
+        if (employee) {
+          employeeDetailsElement.innerHTML = `
+          <h2>${employee.name}</h2>
+          <ul>
+            <li>Name:</li>
+            <li>Designation: ${employee.title}</li>
+            <li>Department: ${employee.department}</li>
+          
+          </ul>
+          `;
+        } else {
+          document.getElementById("employeeDetail").innerHTML =
+            "Employee not found.";
+        }
+
+        // Display the employee details or an error message
+      </script>
+    </body>
+  </head>
+</html>
