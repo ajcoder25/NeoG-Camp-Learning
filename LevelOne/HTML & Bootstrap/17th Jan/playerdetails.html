@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+  <title> Player DataBase</title>
+  <link href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel = 'stylesheet'>
+  <script src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+</head>
+<body>
+  
+   <header>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid ">
+        <a class="navbar-brand" href="#">Cricket Player Database</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="player.html">Players</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="report.html">Report</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+</header>
+
+   <main class = 'container'>
+    <h2>Player Details</h2>
+    <section id = 'playerdetail'>
+
+    </section>
+
+   </main>
+
+   <footer>
+
+   </footer>
+   <script>
+
+    // Database
+    let playerDatabase = [
+    { id: '1', country: 'India', role: 'Batsman' },
+    { id: '2', country: 'Australia', role: 'Bowler' }
+];
+
+function getParameterBy(name) {
+    let url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+let playerId = getParameterBy('id');
+
+// Find the player by id
+let playerCheck = null;
+for (let i = 0; i < playerDatabase.length; i++) {
+    if (playerDatabase[i].id === playerId) {
+        playerCheck = playerDatabase[i];
+        break; // Stop the loop once the player is found
+    }
+}
+
+let playerDetailsElement = document.getElementById('playerdetail');
+
+if (playerCheck) {
+    playerDetailsElement.innerHTML = `
+       
+    <div class = 'card'>
+      <div class = 'card-header'>
+                <h2>Player 1 </h2>
+            </div>
+
+    <div class = 'card-body'>
+
+      <p class = 'card-text'><strong>Country: </strong> ${playerCheck.country}
+      <p class = 'card-text'><strong>Role: </strong> ${playerCheck.role}
+
+    </div>
+    </div>
+    `;
+} else {
+    playerDetailsElement.innerHTML = "Player not found.";
+}
+
+   </script>
+
+
+</body>
+
+</html>
