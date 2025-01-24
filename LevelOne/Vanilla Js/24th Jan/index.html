@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <label for="nameInput">Enter your name:</label>
+    <input type="text" id="nameInput" />
+    <button id="greetButton">Greet</button>
+    <p id="showGreetingMessage"> </p>
+      <!-- context we want as user click on the greet button it must show the message
+      below -- > -->
+
+    <!-- Creating input field to validate that if it is the email id or not -->
+    <label for = 'emailInput'>Enter your email:</label>
+    <input type = 'email' id = 'emailInput'\>
+    <button id = 'validateEmailButton'>Validate Email</button>
+    <p id = 'emailValidationResult'></p>
+
+
+    <!-- calculate the square of the number -->
+    <label for = 'enterNumber'>Enter a number </label>
+    <input type = 'number' id = 'enterNumber'>
+    <button id = 'calculateButton'>Calculate Square</button>
+    <p id = 'outputResult'></p>
+
+
+
+<!-- //Create a url input -->
+
+  <label for = 'urlInput'>Enter a URL:</label>
+  <input type = 'text' id = 'urlInput'/>
+  <button id = 'urlButton'>Show Link</button>
+  <p id = 'linkResult'></p>
+
+<!-- Write the sentence and get to total chracter used -->
+
+<label for = 'sentenceInput'>Enter a sentence:</label>
+<input type = 'text' id = 'sentenceInput'/>
+<button id = 'countButton'>CountWords</button>
+<p id = 'countResult'></p>
+  
+  
+
+
+
+      <script>
+
+      // get the Dom
+        const nameInput = document.getElementById("nameInput");
+        const greetButton = document.getElementById("greetButton");
+        const greetingMessage = document.getElementById('showGreetingMessage')
+
+       // Now will use event listener to make it interactive
+       greetButton.addEventListener('click', function(){
+        const userName = nameInput.value
+        // we can check it by consolling
+        // console.log(name)
+
+        greetingMessage.textContent = `Hello, ${userName}`
+
+
+       })
+
+
+    // verify the email id if it is correct or not
+
+    // Get the Dom Element
+
+    const emailInput = document.getElementById('emailInput')
+    const validateEmailButton = document.getElementById('validateEmailButton')
+    let emailValidationResult = document.getElementById('emailValidationResult')
+
+    validateEmailButton.addEventListener('click', function(){
+       const email = emailInput.value
+
+       //how to vefify if it is the email id  by 
+       //by validating test@gmail.com   
+       // by checking in username does it has @ .
+       // logic 2nd  it must follow the consistency like in email id @ will come first then . 
+       //if the user enter in vice-versa it would not work
+
+
+       // let check the index of @ .
+
+      const atIndex = email.indexOf('@')
+      const dotIndex = email.indexOf('.')
+      // suppose you write the symbol inside the indexof if it doesn't find it it will show '-1'
+
+      // logic of if statement: if the indexof '@' > 1 that mean it must have @ 
+      
+      if(atIndex >= 0 && dotIndex > atIndex){
+        emailValidationResult.textContent = 'Valid email address.'
+      }
+      else{
+        emailValidationResult.textContent = 'Invalid email address.'
+      }
+
+
+
+    })
+
+
+
+
+// Get the Dom for Number
+
+let enterNumberElement = document.getElementById('enterNumber')
+let buttonIdElement = document.getElementById('calculateButton')
+let outputResult = document.getElementById('outputResult')
+
+
+buttonIdElement.addEventListener('click',function(){
+  const numberValue = enterNumberElement.value
+  const square = numberValue * numberValue
+
+
+  outputResult.textContent = `Square of ${numberValue} is ${square}.`
+
+})
+    
+     
+// find the link
+
+
+const urlInput = document.getElementById('urlInput')
+const urlButton = document.getElementById('urlButton')
+const linkResult = document.getElementById('linkResult')
+
+urlButton.addEventListener('click', function(){
+  const url = urlInput.value
+  // we want to it open onto another tab
+  linkResult.innerHTML = `<a href = "${url}" target ="_blank">  ${url} </a> `
+
+   
+
+})
+
+// get the element to count the words
+
+
+const sentenceInput = document.getElementById('sentenceInput')
+const countButton = document.getElementById('countButton')
+const countResult = document.getElementById('countResult')
+
+
+countButton.addEventListener('click',function(){
+  const sentence = sentenceInput.value
+  //Problem Now we have to check how many words in the sentence and show the output
+  //It will convert sentence into array then we calculate the words
+
+  const words = sentence.split(" ")
+  const wordCount = words.length
+
+  countResult.textContent = `Word Count: ${wordCount}`
+
+
+
+
+
+})
+
+      </script>
+    </p>
+  </body>
+</html>
