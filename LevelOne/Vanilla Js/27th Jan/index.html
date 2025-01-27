@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Enter the list of books -->
+    <label for="bookinput">Enter your Favorite book list: </label>
+    <textarea id="bookinput"></textarea>
+    <button id="bookBtn">Display Book List</button>
+    <p id="bookOutput"></p>
+
+    <!-- Enter ingredients instruction -->
+
+    <label for="recipeinput">Enter a Recipe</label>
+    <textarea id="recipeinput" rows="5" cols="50"></textarea>
+    <button id="recipeBtn">Display Recipe</button>
+    <p id="recipeOutput1"></p>
+    <p id="recipeOutput2"></p>
+
+    <!-- enter your personal Bio -->
+    <label for="personalInput">Enter your Personal Bio:</label>
+    <textarea id="personalInput"></textarea>
+    <button id="personalBtn">Display Bio</button>
+    <p id="personaloutput"></p>
+
+    <!-- Enter your list of goal -->
+    <label for="inputGoal">Enter your list goals:</label>
+    <textarea id="inputGoal"></textarea>
+    <button id="goalBtn">Display Goals</button>
+    <p id="goalOutput"></p>
+
+    <!-- Enter your short story -->
+    <label for="shortId">Enter a short story or anecdote:</label>
+    <textarea id="shortId"></textarea>
+    <button id="shortbtn">Display Story</button>
+    <p id="storyOutput"></p>
+
+    <script>
+      // Book program
+      let bookInput = document.getElementById("bookinput");
+      let bookbtn = document.getElementById("bookBtn");
+      let bookOutput = document.getElementById("bookOutput");
+
+      bookbtn.addEventListener("click", function () {
+        let checkValue = bookInput.value;
+        bookOutput.textContent = `Your favorite books: ${checkValue} `;
+      });
+
+      //
+
+      // recipeinput
+
+      let recipeInput = document.getElementById("recipeinput");
+      let recipeBtn = document.getElementById("recipeBtn");
+      let recipeOutput1 = document.getElementById("recipeOutput1");
+      let recipeOutput2 = document.getElementById("recipeOutput2");
+
+      recipeBtn.addEventListener("click", function () {
+        let inputValue = recipeInput.value.trim();
+        let line = inputValue.split("\n");
+
+        if (line.length > 1) {
+          recipeOutput1.innerHTML = `<strong>Ingredients:</strong>
+              ${line[0]}
+          `;
+          recipeOutput2.innerHTML = `<strong>Instructions:</strong>
+          ${line.slice(1).join(" ")}
+          `;
+        }
+      });
+
+      // Display Bio
+
+      let personalInput = document.getElementById("personalInput");
+      let personalBtn = document.getElementById("personalBtn");
+      let personaloutput = document.getElementById("personaloutput");
+
+      personalBtn.addEventListener("click", function () {
+        let personalValue = personalInput.value;
+        personaloutput.textContent = `Your personal bio: ${personalValue}`;
+      });
+
+      //Enter your goal
+
+      let inputGoal = document.getElementById("inputGoal");
+      let goalbtn = document.getElementById("goalBtn");
+      let goalOutput = document.getElementById("goalOutput");
+
+      goalbtn.addEventListener("click", function () {
+        let checkValue = inputGoal.value;
+        goalOutput.textContent = `You goal list are: ${checkValue} `;
+      });
+
+      //share your story
+
+      let shortInput = document.getElementById("shortId");
+      let shortbtn = document.getElementById("shortbtn");
+      let storyOutput = document.getElementById("storyOutput");
+
+      shortbtn.addEventListener("click", function () {
+        let checkValue = shortInput.value;
+        storyOutput.textContent = `Your short story or anecdote: ${checkValue}`;
+      });
+    </script>
+  </body>
+</html>
