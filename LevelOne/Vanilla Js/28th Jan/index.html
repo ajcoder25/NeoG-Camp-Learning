@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <label>Program 1: Tick the checkbox below to agree to the terms:</label
+    ><br />
+
+    <input type="checkbox" id="checkboxInput" />
+    <label>Program 1: I agree to the terms and conditions.</label>
+    <p id="checkboxOutput"></p>
+
+    <!-- Selected food Allegies -->
+
+    <label>Program 2: Select multiple food allergies:</label>
+    <input type="checkbox" name="food" value="Dairy" />Dairy
+    <input type="checkbox" name="food" value="Nuts" />Nuts
+    <input type="checkbox" name="food" value="Gluten" />Gluten
+    <button id="foodbtn">Display Selected Food Allergies</button>
+    <p id="foodOutput"></p>
+
+    <script>
+      let checkboxInput = document.getElementById("checkboxInput");
+      let checkboxOutput = document.getElementById("checkboxOutput");
+
+      checkboxInput.addEventListener("change", function () {
+        checkboxOutput.textContent = `User Agreed to Terms `;
+      });
+
+      //Selected food Allergies Program
+
+      let foodEl = document.getElementsByName("food");
+      let foodbtn = document.getElementById("foodbtn");
+      let foodOutput = document.getElementById("foodOutput");
+
+      // attaching the event listener to every input
+
+      for (let i = 0; i < foodEl.length; i++) {
+        //Attach the event listener to every checkbox
+        foodEl[i].addEventListener("change", function () {
+          // if user click to any checkbox
+
+          let foodEmty = [];
+          for (let j = 0; j < foodEl.length; j++) {
+            foodEmpty.push(foodEl[j].value);
+          }
+        });
+        console.log(foodEmty);
+      }
+
+      // Now I want to show the output in the Dom
+    </script>
+  </body>
+</html>
