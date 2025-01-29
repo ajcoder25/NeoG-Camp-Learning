@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <label>Program 1: Select a music genre:</label><br />
+    <input type="radio" name="music" value="Pop" />Pop
+    <input type="radio" name="music" value="Rock" />Rock
+    <input type="radio" name="music" value="Hip-Hop" />Hip-Hop
+    <p id="musicOutput"></p>
+
+    <!-- Program 2 -->
+
+    <label> Program 2: Choose a language preference:</label><br />
+    <input type="radio" name="lang" value="English" />English
+    <input type="radio" name="lang" value="Spanish" />Spanish
+    <input type="radio" name="lang" value="French" />French
+    <p id="langResult"></p>
+    <!-- 
+    program 3 -->
+    <label> Program 3: Select a job role:</label><br />
+    <input type="radio" name="role" value="Developer" />Developer
+    <input type="radio" name="role" value="Designer" />Designer
+    <input type="radio" name="role" value="Manager" />Manager
+    <button id="roleButton">Display Selected Job Role</button>
+    <p id="roleOutput"></p>
+
+    <!-- Program 4 -->
+
+    <label>Program 4: Choose a favorite hobby:</label>
+    <input type="radio" name="hobby" value="Reading" />Reading
+    <input type="radio" name="hobby" value="Gardening" />Gardening
+    <input type="radio" name="hobby" value="Sports" />Sports
+    <button id="hobbyButton">Display Selected Hobby</button>
+    <p id="hobbyOutput"></p>
+
+    <!-- Program 5 -->
+    <label>Program 5: Select a clothing Style: </label>
+    <input type="radio" name="clothing" value="Casual" />Casual
+    <input type="radio" name="clothing" value="Formal" />Formal
+    <input type="radio" name="clothing" value="sporty" />sporty
+    <button id="clothingBtn">Display Selected style</button>
+    <p id="clothingOutput"></p>
+
+    <script>
+      let musicRadio = document.getElementsByName("music");
+      let musicOutput = document.getElementById("musicOutput");
+
+      for (let i = 0; i < musicRadio.length; i++) {
+        musicRadio[i].addEventListener("change", function () {
+          // get the output of selected radio
+
+          let selectedGenre = document.querySelector(
+            'input[name = "music"]:checked'
+          ).value;
+
+          musicOutput.textContent = `Selected Genre: ${selectedGenre}`;
+        });
+      }
+
+      // Program 2
+
+      let langRadio = document.getElementsByName("lang");
+      let langResult = document.getElementById("langResult");
+
+      for (let i = 0; i < langRadio.length; i++) {
+        langRadio[i].addEventListener("change", function () {
+          let findResult = document.querySelector(
+            'input[name = "lang"]:checked'
+          ).value;
+
+          langResult.textContent = `Selected Language:${findResult}`;
+        });
+      }
+
+      // Program 3
+
+      let roleEl = document.getElementsByName("role");
+      let roleButton = document.getElementById("roleButton");
+      let roleOutput = document.getElementById("roleOutput");
+
+      for (let i = 0; i < roleEl.length; i++) {
+        roleEl[i].addEventListener("change", function () {
+          let selectedRole = document.querySelector(
+            'input[name= "role"]:checked'
+          ).value;
+
+          // add the event listener to the button
+          roleButton.addEventListener("click", function () {
+            roleOutput.textContent = `Selected Role: ${selectedRole}`;
+          });
+        });
+      }
+      //Program 4
+
+      let hobbyEl = document.getElementsByName("hobby");
+      let hobbyButton = document.getElementById("hobbyButton");
+      let hobbyOutput = document.getElementById("hobbyOutput");
+
+      // output
+      // we are looking to show the output as the user click on the button it must show the output
+      // If the user click without selecting any radio button it must show please select any option
+
+      // step 1 Add the click event listener to button
+
+      hobbyButton.addEventListener("click", function () {
+        // step 2nd if the user clicked it must store the value in the variable selectedHobby
+
+        let selectedHobby = document.querySelector(
+          'input[name = "hobby"]:checked'
+        );
+
+        if (selectedHobby) {
+          hobbyOutput.textContent = `Selected Hobby ${selectedHobby.value} `;
+        } else {
+          hobbyOutput.textContent = `Please select a hobby`;
+        }
+      });
+
+      // Program 5
+
+      // Add the Event listener
+
+      let displayBtn = document.getElementById("clothingBtn");
+      let clothing = document.getElementsByName("clothing");
+      let clothingOutput = document.getElementById("clothingOutput");
+
+      displayBtn.addEventListener("click", function () {
+        //steps 1 we are storing the answer to the user input
+        let selectedClothing = document.querySelector(
+          'input[name = "clothing"]:checked'
+        );
+
+        // steps 2 If the user select it, must show the value
+
+        if (selectedClothing) {
+          clothingOutput.textContent = `Selected Clothing Style: ${selectedClothing.value}`;
+        } else {
+          clothingOutput.textContent = `Please select any a clothing style`;
+        }
+      });
+    </script>
+  </body>
+</html>
