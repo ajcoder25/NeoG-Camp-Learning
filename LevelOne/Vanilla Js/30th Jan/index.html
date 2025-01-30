@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <label>Select a Color:</label>
+    <select id="selectColor">
+      <option value="Red">Red</option>
+      <option value="Yellow">Yellow</option>
+      <option value="Green">Green</option>
+    </select>
+    <p id="selectedColorResult"></p>
+
+<!-- 
+    Program 2nd  -->
+
+    <label>Select a Day:</label>
+    <select id = 'dayDropdown'>
+         <option value = 'Sunday'>Sunday</option>
+         <option value = 'Monday'>Monday</option>
+         <option value = 'Wednesday'>Wednesday</option>
+         <option value = 'Thursday'>Thursday</option>
+    </select>
+    <p id = 'dayOutput'></p>
+
+
+    </select>
+
+
+    <!-- Program3 -->
+ 
+  <label>Select a Country:</label>
+    <select id = 'checkCountry'>
+      <option value = 'usa'>USA</option>
+      <option value = 'canada'>Canada</option>
+      <option value = 'mexico'>Mexico</option>
+    </select>
+    <p id = 'countryResult'></p>
+    <script>
+      let colorSelect = document.getElementById("selectColor");
+      let selectedColorResult = document.getElementById("selectedColorResult");
+
+      colorSelect.addEventListener("change", function () {
+        const selectedColor = colorSelect.value;
+
+        selectedColorResult.textContent = ` You Selected: ${selectedColor}`;
+      });
+
+
+   let dayDropdownEl = document.getElementById('dayDropdown')
+   let dayOutput = document.getElementById('dayOutput')
+
+   dayDropdownEl.addEventListener('change', function(){
+    let selectedOutput = dayDropdownEl.value 
+    
+    if(selectedOutput === 'Sunday'){
+         dayOutput.textContent = "It's is a Weekend!"
+    }else{
+        dayOutput.textContent = "It is weekday."
+    }
+
+   
+   })
+
+   /// Program 3
+
+   let checkCountryEl = document.getElementById('checkCountry')
+   let countryResult = document.getElementById('countryResult')
+
+
+   checkCountryEl.addEventListener('change', function(){
+        let getValue = checkCountryEl.value
+
+
+        const capitals = {
+                 usa: "Wahington,D.c.",
+                 canada:"Ottawa",
+                 mexico: "mexico City"
+
+
+        
+            }
+      
+            //Show the capital of the Country
+            countryResult.textContent = `Capitals: ${capitals[getValue]} `
+
+   })
+    </script>
+  </body>
+</html>
