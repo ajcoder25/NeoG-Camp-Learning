@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+  <form id = 'form-Input'>
+    <label for="name"><strong>Full Name:</strong></label>
+    <input type="text" id="name" /> <br />
+    <br />
+    <label for="number"><strong>Phone Number:</strong></label>
+    <input type="number" id="number-input" />
+    <br />
+    <br />
+    <label for = 'input-email'><strong>Email Id:</strong></label>
+      <input type = 'email' id = 'input-email'>
+      <br>
+      <br>
+    <label><strong>Gender:</strong></label>
+    <br />
+    <label for="Female"
+      ><input
+        type="radio"
+        name="gender"
+        value="Female"
+        id="Female"
+      />Female</label
+    >
+    <br />
+    <label
+      ><input type="radio" name="gender" value="Male" id="male" />Male</label
+    >
+    <br />
+
+    <label for="others"
+      ><input
+        type="radio"
+        name="gender"
+        value="others"
+        id="others"
+      />Others</label
+    >
+    <br />
+    <br />
+    <label><strong>Are you College graduate?:</strong></label>
+    <br>
+    <label
+      ><input
+        type="radio"
+        name="college"
+        value="Yes"
+        id="check1"
+      />Yes</label
+    >
+  <br>
+    <label
+      ><input type="radio" name="college" value="yes" id="check2" />No</label
+    >
+  </br>
+    <label
+      ><input
+        type="radio"
+        name="college"
+        value="Dropout"
+        id="check3"
+      />Dropout</label
+    >
+  <br>
+ <br>
+  <label><strong>Are you working anywhere full-time or part-time?:</strong></label>
+  <br>
+  <select id = 'selection'>
+    <option>Working Full Time</option>
+    <option>Working Part Time </option>
+    <option>Not Working Anywhere</option>
+  </select>
+
+</br>
+<br>
+  <label for = 'field'><strong>Why do you want to learn web development?:</strong>
+    <textarea rows = '5' cols = '40' id = 'field'></textarea>
+
+<br>
+  </br>
+  <label><strong>How did you come to know about us?</strong></label>
+  <br>
+  <label for = 'youtube'><input type = 'checkbox'  name= 'social' value = 'Youtube' id = 'youtube'>Youtube</label> 
+  <br>
+  <label for = 'instagram'><input type = 'checkbox' name = 'social' value = 'Instagram' id = 'instagram'>Instagram</label>
+  <br>
+  <label for = 'linkedIn'><input type = 'checkbox' name = 'social' value = 'LinkedIn' id = 'linkedIn'>LinkedIn<label>
+    <br>
+  <label for = 'twitter'><input type = 'checkbox' name = 'social' value = 'Twitter' id = 'twitter' > Twitter</label>
+  <br>
+  <label for = 'family'><input type = 'checkbox' name = 'social' value = 'Friend and Family' id = 'family'>Friends and Family</label>
+  <br>
+  <label for = 'other'><input type  = 'checkbox' name= 'social' value = 'Other' id = 'other'>Other</label>
+  <br>
+  <br>
+  <label for = 'confirm'><input type = 'checkbox' id = 'confirm'><strong>I Confirm that all information in this form is factually true.</strong></label>
+ <br>
+ <br>
+  <input type= 'submit' value = 'Submit Details'>
+  </form>
+  <div id = 'formOutput'></div>
+   </body>
+   <script>
+   let formInput = document.getElementById('form-Input')
+  
+   formInput.addEventListener('submit', function(){
+    event.preventDefault()
+
+
+    let nameInput = document.getElementById('name').value
+    let phoneNumber = document.getElementById('number-input').value
+    let emailInput = document.getElementById('input-email').value
+    let genderCheck = document.querySelector('input[name ="gender"]:checked').value
+    let CollegeStatus = document.querySelector('input[name = "college"]:checked').value
+    let workingStatus = document.getElementById('selection').value
+    let whyLearning = document.getElementById('field').value
+    let knowStatus = document.querySelectorAll('input[name = "social"]:checked')
+
+    let selectedCheckbox = []
+
+     for(let i = 0; i < knowStatus.length; i++){
+        selectedCheckbox.push(knowStatus[i].value)
+     }
+   
+     
+
+
+   let confirmIt = document.getElementById('confirm')
+   
+   let printDetails = `<h2>Details Submitted:</h2>
+                <p> <strong>Name:</strong>${nameInput}</p>
+                <p><strong>Phone Number:</strong>${phoneNumber}</p>
+                <p><strong>Email Id:</strong>${emailInput}</p>
+                <p><strong>Gender:</strong>${genderCheck}</p>
+                <p><strong>Are you a college graduate?</strong>:${CollegeStatus}</p>
+                <p><strong>Are you working anwhere full-time or part-time? </strong>: ${workingStatus}</p>
+                <p><strong>Why do you want to learn web development?:</strong>:${selectedCheckbox}
+            
+   
+   `
+
+       let formResult = document.getElementById('formOutput')
+
+       formResult.innerHTML = printDetails
+   
+      
+
+   })
+  </script>
+    
+  
+</html>
