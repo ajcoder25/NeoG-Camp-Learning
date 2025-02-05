@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <label>Program 1: Tick the checkbox below to agree to the terms:</label
+    ><br />
+
+    <input type="checkbox" id="checkboxInput" />
+    <label> I agree to the terms and conditions.</label>
+    <p id="checkboxOutput"></p>
+
+    <!-- Selected food Allegies -->
+
+    <label>Program 2: Select multiple food allergies:</label>
+    <input type="checkbox" name="food" value="Dairy" />Dairy
+    <input type="checkbox" name="food" value="Nuts" />Nuts
+    <input type="checkbox" name="food" value="Gluten" />Gluten
+    <button id="foodbtn">Display Selected Food Allergies</button>
+    <p id="foodOutput"></p>
+
+    <!-- Program 3 -->
+    <label>Program 3:Choose multiple travel destinations: </label>
+    <input type="checkbox" name="destination" value="Paris" />Paris
+    <input type="checkbox" name="destination" value="New York" />New York
+    <input type="checkbox" name="destination" value="Tokyo" />Tokyo
+    <button id="destinationBtn">Display Selected Travel Destinations</button>
+    <p id="destinationOutput"></p>
+
+    <!-- program 4  -->
+    <label>Program 4: Select multiple sports</label>
+    <input type="checkbox" name="sports" value="Soccer" />Soccer
+    <input type="checkbox" name="sports" value="Basketball" />Basketball
+    <input type="checkbox" name="sports" value="Tennis" />Tennis
+    <button id="sportsbtn">Display Selected Sports</button>
+    <p id="sportsOutput"></p>
+
+    <!-- program 5 -->
+
+    <label>Program 5: Choose multiple clothing colors:</label>
+    <input type="checkbox" name="clothing" value="Black" /> Black
+    <input type="checkbox" name="clothing" value="White" />White
+    <input type="checkbox" name="clothing" value="Blue" />Blue
+    <button id="clothingButton">Display Selected Clothing Colors</button>
+    <p id="clothingOutput"></p>
+
+    <!-- Program 6 -->
+
+    <label> Program 6: Choose multiple social media platforms:</label>
+    <input type="checkbox" name="social" value="Facebook" />Facebook
+    <input type="checkbox" name="social" value="Twitter" />Twitter
+    <input type="checkbox" name="social" value="Instagram" />Instagram
+    <button id="socialBtn">Display Selected Social Media Platforms</button>
+    <p id="socialOutput"></p>
+
+    <script>
+      let checkboxInput = document.getElementById("checkboxInput");
+      let checkboxOutput = document.getElementById("checkboxOutput");
+
+      checkboxInput.addEventListener("change", function () {
+        if (checkboxInput.checked) {
+          checkboxOutput.textContent = `User Agreed to Terms `;
+        } else {
+          checkboxOutput.textContent = "";
+        }
+      });
+
+      //Selected food Allergies Program
+
+      let foodEl = document.getElementsByName("food");
+      let foodbtn = document.getElementById("foodbtn");
+      let foodOutput = document.getElementById("foodOutput");
+
+      // attaching the event listener to every input
+
+      //Output want
+      //As the user click on the button it should show the update
+      //If user doesn't select anything Ask user to select one checkbox
+      let foodArray = [];
+      for (let i = 0; i < foodEl.length; i++) {
+        //Step-1 Will attach the event listener to every click
+        foodEl[i].addEventListener("change", function () {
+          //step2- If the user click on then store in the empty foodArray
+          if (foodEl[i].checked) {
+            foodArray.push(foodEl[i].value);
+          } else {
+            //step3-  If unchecked, removing the array
+            for (let j = 0; j < foodEl.length; j++) {
+              if (foodEl[j].checked === foodEl[i].checked) {
+                foodArray.splice(j, 1);
+                break;
+              }
+            }
+          }
+        });
+      }
+
+      // Step 3rd use the event listener to button to get the data
+
+      foodbtn.addEventListener("click", function () {
+        if (foodArray.length > 0) {
+          foodOutput.textContent = `Selected Food Allergies: ${foodArray.join(
+            ", "
+          )}  `;
+        } else {
+          foodOutput.textContent = `Please select at least one food allergy `;
+        }
+      });
+
+      //Program 3
+
+      let destinationEl = document.getElementsByName("destination");
+      let destinationOutput = document.getElementById("destinationOutput");
+      let destinationBtn = document.getElementById("destinationBtn");
+
+      // Steps 1 : Attach the event listener to each checkbox
+
+      let destinationArray = [];
+
+      for (let i = 0; i < destinationEl.length; i++) {
+        destinationEl[i].addEventListener("change", function () {
+          if (destinationEl[i].checked) {
+            destinationArray.push(destinationEl[i].value);
+          } else {
+            // Steps 2 : Remove it manually
+
+            for (let j = 0; j < destinationEl.length; j++) {
+              if (destinationEl[i].checked === destinationEl[j].checked) {
+                destinationArray.splice(j, 1);
+              }
+            }
+          }
+        });
+      }
+
+      // Step3 As the user click on the button it should show the value
+
+      destinationBtn.addEventListener("click", function () {
+        if (destinationArray.length > 0) {
+          destinationOutput.textContent = `Selected Travel Destination: ${destinationArray.join(
+            ", "
+          )}`;
+          //Step 4: If the user doesn't select any of the option it should show the error
+        } else {
+          destinationOutput.textContent = `Please select at least one travel destination`;
+        }
+      });
+
+      //Program 4
+
+      let sportsEl = document.getElementsByName("sports");
+      let sportsbtn = document.getElementById("sportsbtn");
+      let sportsOutput = document.getElementById("sportsOutput");
+
+      //steps1 Attach the event listener
+      let sportArray = [];
+
+      for (let i = 0; i < sportsEl.length; i++) {
+        sportsEl[i].addEventListener("change", function () {
+          // step 2nd: if the user checked push the value to the array
+          if (sportsEl[i].checked) {
+            sportArray.push(sportsEl[i].value);
+          }
+          //step 3rd: As the user unchecked it it must remove from the array
+          else {
+            for (let j = 0; j < sportsEl.length; j++) {
+              if (sportsEl[j].checked === sportsEl[i].checked) {
+                // Step 4th: Now remove it from the array
+
+                sportArray.splice(j, 1);
+
+                break;
+              }
+            }
+          }
+        });
+      }
+
+      // Add the button
+
+      sportsbtn.addEventListener("click", function () {
+        // step 5 use if else statement as the user select must atleast select one checkbox
+        if (sportArray.length > 0) {
+          sportsOutput.textContent = `Selected sports ${sportArray.join(",")} `;
+        } else {
+          sportsOutput.textContent = `Please select at least one sports `;
+        }
+      });
+
+      // Program 5
+
+      let clothingEl = document.getElementsByName("clothing");
+      let clothingButton = document.getElementById("clothingButton");
+      let clothingOutput = document.getElementById("clothingOutput");
+
+      let clothingArray = [];
+
+      for (let i = 0; i < clothingEl.length; i++) {
+        clothingEl[i].addEventListener("change", function () {
+          if (clothingEl[i].checked) {
+            clothingArray.push(clothingEl[i].value);
+          } else {
+            for (let j = 0; j < clothingEl.length; j++) {
+              if (clothingEl[j].checked === clothingEl[i].checked) {
+                clothingArray.splice(j, 1);
+              }
+            }
+          }
+        });
+      }
+
+      // Add EventListener to button to show the output
+
+      clothingButton.addEventListener("click", function () {
+        if (clothingArray.length > 0) {
+          clothingOutput.textContent = `Selected Clothing Colors: ${clothingArray.join(
+            " ,"
+          )}`;
+        } else {
+          clothingOutput.textContent = "Select atleast one color";
+        }
+      });
+
+      // Program 6
+
+      let socialEl = document.getElementsByName("social");
+      let socialBtn = document.getElementById("socialBtn");
+      let socialOutput = document.getElementById("socialOutput");
+
+      let socialArray = [];
+
+      for (let i = 0; i < socialEl.length; i++) {
+        socialEl[i].addEventListener("change", function () {
+          if (socialEl[i].checked) {
+            socialArray.push(socialEl[i].value);
+          } else {
+            for (let j = 0; socialEl.length; j++) {
+              if (socialEl[j].checked === socialEl[i].checked) {
+                socialArray.splice(j, 1);
+                break;
+              }
+            }
+          }
+        });
+      }
+
+      // Add the event listener to button
+      socialBtn.addEventListener("click", function () {
+        if (socialArray.length) {
+          socialOutput.textContent = `Selected Social Media Platforms: ${socialArray.join(
+            ","
+          )} `;
+        } else {
+          socialOutput.textContent =
+            "Please select at least one social media platform";
+        }
+      });
+    </script>
+  </body>
+</html>
