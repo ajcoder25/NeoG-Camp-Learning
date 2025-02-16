@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Todo App</h1>
+    <h2>Show Todos</h2>
+    <button id="getTodos">Get Todos</button>
+    <ul id="listTodos"></ul>
+    <div id="getTodoContainer"></div>
+    <br />
+    <form id="todoForm">
+      <label for="title">Title</label><br />
+      <input id="title" /><br />
+      <br />
+      <label for="completedTodo">Completed</label>
+      <input type="checkbox" id="completedTodo" />
+      <br />
+      <br />
+      <button>Add Todo</button>
+    </form>
+
+    <div id="postContainer"></div>
+
+    <script>
+      let todoForm = document.getElementById("todoForm");
+      let title = document.getElementById("title");
+      let completedTodo = document.getElementById("completedTodo");
+      let apiUrl = "https://todos-student-neog.replit.app/todos";
+      let listTodos = document.getElementById("listTodos");
+      let postContainer = document.getElementById("postContainer");
+      let getTodos = document.getElementById("getTodos");
+      let getTodoContainer = document.getElementById("getTodoContainer");
+
+      // get to dos data from the server
+
+      getTodos.addEventListener("click", function () {
+        listTodos.innerHTML = "";
+        fetch(apiUrl)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            if (data) {
+              // we are getting the all the data so we slice it
+              let seeOnly5 = data.slice(-8);
+              for (let i = 0; i < seeOnly5.length; i++) {
+                const liElements = document.createElement("li");
+                liElements.textContent = `${seeOnly5[i].title}(completed: ${seeOnly5[i].completed}) 
+              `;
+                listTodos.appendChild(liElements);
+              }
+            } else {
+              getTodoContainer.textContent = "failed to getch todos";
+            }
+          })
+          .catch(function (error) {
+            getTodoContainer.textContent =
+              "An error occured while getting the to dos ";
+          });
+      });
+
+      // to do end
+      todoForm.addEventListener("submit", function (event) {
+        //first we will create an object
+        event.preventDefault();
+
+        const todoData = {
+          title: title.value,
+          completed: completedTodo.checked,
+        };
+
+        // send our data
+        fetch(apiUrl, {
+          method: "POST",
+          body: JSON.stringify(todoData),
+          headers: {
+            "content-type": "application/json",
+          },
+          // first we will convert to json
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          // then show the data
+          .then(function (data) {
+            // you can also check the value consolling it
+            // console.log(data);
+            // we have to show the user that your todos has been sent
+            if (data) {
+              postContainer.textContent = "Todo added successfully";
+            } else {
+              postContainer.textContent = "failed to add Todo";
+            }
+          })
+          .catch(function (error) {
+            postContainer.textContent = "An error occured while adding to do";
+
+            // Until now we trying to post data to the server
+          });
+      });
+    </script>
+  </body>
+</html>
