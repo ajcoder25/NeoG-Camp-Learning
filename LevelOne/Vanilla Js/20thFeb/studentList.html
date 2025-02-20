@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+
+    <header>
+        <nav>
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid ">
+              <a class="navbar-brand" href="#">Student Management</a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">student List</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Add Student</a>
+                  </li>
+                 <div>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </nav>
+      </header>
+
+
+
+
+<main class = 'container py-4'>
+
+    <h1>Student List</h1>
+    <label>Filter by Gender:</label>
+    <select class="form-select" aria-label="Default select example">
+        
+        <option value="All">All</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    <ul class="list-group mt-4 row" id="result"></ul>
+    <ul id="studentList"></ul>
+</main>
+    <script>
+      const apiUrl =
+        "https://student-management-student-neog.replit.app/students";
+
+      function fetchData() {
+        result.textContent = "loading...";
+        fetch(apiUrl)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            if (data) {
+              result.textContent = "";
+              for (let i = 0; i < data.length; i++) {
+                let liElement = document.createElement("li");
+                liElement.className = 'list-group-item col-md-12'
+                liElement.innerHTML = `${data[i].name} - Grade: ${data[i].grade}- Age- ${data[i].age}- Attendance: ${data[i].attendance}- Gender- ${data[i].gender}-Marks: ${data[i].marks}<button data-id = "${data[i]._id}" class = "btn btn-danger float-end" id = 'deleteBtn'>Delete</button>`;
+
+                result.appendChild(liElement);
+              }
+            }
+
+            //delete Call 
+
+            let deleteBtn = document.querySelectorAll("#deleteBtn")
+            for(let i = 0; i< deleteBtn.length;i++){
+                deleteBtn[i].addEventListener('click', function(event){
+           
+                let checkId = event.target.getAttribute('data-id')
+                let deleteApi = `https://student-management-student-neog.replit.app/students/${checkId}`
+                
+                })
+            }
+          })
+          //If due to some reason your internet doesn't work then you must show the error
+          .catch(function (error) {
+            result.text = "Check your internet connection once";
+          });
+      }
+
+      fetchData();
+    </script>
+  </body>
+</html>
