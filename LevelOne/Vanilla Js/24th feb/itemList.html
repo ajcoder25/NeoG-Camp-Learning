@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Inventory Management</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="itemList.html">Item List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="addItem.html">Add items</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mt-5">
+      <h2>Item List</h2>
+      <p>Filter by Category:</p>
+      <select class="form-select" id="select">
+        <option value="All">All</option>
+        <option value="Non-Perishable">Non-Perishable</option>
+        <option value="Perishable">Perishable</option>
+      </select>
+      <ul class="list-group mt-3" id="result"></ul>
+    </main>
+
+    <script>
+      let itemsData = [];
+      let result = document.getElementById("result");
+      let api =
+        "https://inventory-management-student-neog-ca.replit.app/inventory";
+
+      // fetch data
+
+      function fetchData() {
+        fetch(api)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            if (data) {
+              itemsData = data;
+              displayData(data);
+            }
+          });
+      }
+
+      //Display Data
+
+      function displayData(itemsData) {
+        result.innerHTML = ""; // clear the previous data
+        if (itemsData.length === 0) {
+          result.innerHTML = `<li class = 'list-group-item'>No Item Found</li>`;
+          return;
+        }
+
+        for (let i = 0; i < itemsData.length; i++) {
+          let li = document.createElement("li");
+          li.className = "list-group-item ";
+          li.innerHTML = `${itemsData[i].itemName} - Quantity: ${itemsData[i].quantity} - Category: ${itemsData[i].category} <button data-id = "${itemsData[i]._id}" class = 'btn btn-danger float-end deleteBtn'>Delete</button>`;
+          result.appendChild(li);
+        }
+        deleteBtn(); //called deleteBtn function
+      }
+
+      //DeleteBtn
+
+      function deleteBtn() {
+        let deleteBtn = document.querySelectorAll(".deleteBtn");
+        for (let i = 0; i < deleteBtn.length; i++) {
+          deleteBtn[i].addEventListener("click", function (event) {
+            let deleteId = event.target.getAttribute("data-id");
+            let deleteApi = `https://inventory-management-student-neog-ca.replit.app/inventory/${deleteId}`;
+
+            fetch(deleteApi, {
+              method: "DELETE",
+            })
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                if (data) {
+                  fetchData();
+                }
+              });
+          });
+        }
+      }
+
+      // filter Data
+      let select = document.getElementById("select");
+
+      function filter() {
+        let selectedOption = [];
+        let selectValue = select.value;
+        if (selectValue === "All") {
+          selectedOption = itemsData;
+        } else {
+          for (let i = 0; i < itemsData.length; i++) {
+            if (itemsData[i].category === selectValue) {
+              selectedOption.push(itemsData[i]);
+            }
+          }
+        }
+        displayData(selectedOption);
+      }
+
+      select.addEventListener("change", filter);
+
+      fetchData();
+    </script>
+  </body>
+</html>
